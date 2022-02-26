@@ -1,0 +1,27 @@
+{{ define "base" }}
+<html>
+	<head>
+		<link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+		<meta charset="utf-8">
+		{{ template "head" . }}
+	</head>
+	<body>
+		<header class="container">
+			<nav>
+				<ul><li><strong>Hi, I'm Tyler</strong></li></ul>
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/til/">TIL</a></li>
+					<li><a href="/archive/">Archive</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main class="container">
+			{{ if .Flash }}
+			<article> {{ .Flash }} </article>
+			{{ end }}
+			{{ template "body" . }}
+		</main>
+	</body>
+</html>
+{{ end }}

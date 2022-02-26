@@ -1,0 +1,17 @@
+{{ define "head" }}
+{{ end }}
+{{ define "body" }}
+<hgroup>
+	<h1>{{ .FM.Title }}</h1>
+	<small>{{ .FM.Date }}</small>
+</hgroup>
+<div>
+	{{ .Content }}
+</div>
+<div>
+	Tags:
+	{{ range .FM.Tags }}
+		<a href="/tag/{{.}}.html"><div class="tag-pill"></div></a>
+	{{ end }}
+</div>
+{{ end }}
