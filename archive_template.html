@@ -1,0 +1,14 @@
+{{ define "head" }}
+{{ end }}
+{{ define "body" }}
+<div>
+	<h2>All posts:</h2>
+	<ol>
+	{{ range .Posts }}
+		<li>
+			<a href="{{.Path}}">{{.Title}}</a>
+		</li>
+	{{ end }}
+	</ol>
+</div>
+{{ end }}

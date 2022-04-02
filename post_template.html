@@ -1,4 +1,5 @@
 {{ define "head" }}
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.27.0/themes/prism.min.css">
 {{ end }}
 {{ define "body" }}
 <hgroup>
@@ -11,7 +12,9 @@
 <div>
 	Tags:
 	{{ range .FM.Tags }}
-		<a href="/tag/{{.}}.html"><div class="tag-pill"></div></a>
+	<a href="/tag/{{.}}.html" role="button">{{.}}</a>
 	{{ end }}
 </div>
+<script src="https://unpkg.com/prismjs@1.27.0/components/prism-core.min.js"></script>
+<script src="https://unpkg.com/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js"></script>
 {{ end }}

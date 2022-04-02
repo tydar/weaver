@@ -1,0 +1,18 @@
+{{ define "head" }}
+{{ end }}
+{{ define "body" }}
+<hgroup>
+	<h1>Hi, I'm Tyler</h1>
+	<small>This is my blog.</small>
+</hgroup>
+<div>
+	<h2>Recent posts:</h2>
+	<ol>
+	{{ range .Posts }}
+		<li>
+			<a href="{{.Path}}">{{.Title}}</a>
+		</li>
+	{{ end }}
+	</ol>
+</div>
+{{ end }}
