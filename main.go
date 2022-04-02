@@ -17,6 +17,8 @@ import (
 )
 
 func main() {
+	_, devPrs := os.LookupEnv("WEAVER_DEV")
+
 	tmpl, err := template.ParseFiles("base_template.html", "post_template.html")
 	if err != nil {
 		panic(fmt.Errorf("template.ParseFiles: %v", err))
@@ -60,10 +62,12 @@ func main() {
 		panic(err)
 	}
 
-	fs := http.FileServer(http.Dir("./output"))
-	http.Handle("/", fs)
-	if err := http.ListenAndServe(":3000", nil); err != nil {
-		panic(err)
+	if devPrs {
+		fs := http.FileServer(http.Dir("./output"))
+		http.Handle("/", fs)
+		if err := http.ListenAndServe(":3000", nil); err != nil {
+			panic(err)
+		}
 	}
 }
 
