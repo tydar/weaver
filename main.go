@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -47,19 +48,23 @@ func main() {
 
 	index, tags, err := buildPosts(tmpl)
 	if err != nil {
-		panic(err)
+		log.Fatalf("buildPosts: %v", err)
 	}
 
 	if err := buildIndexPage(index, indexTemplate); err != nil {
-		panic(err)
+		log.Fatalf("buildIndexPage: %v", err)
 	}
 
 	if err := buildArchivePage(index, archiveTemplate); err != nil {
-		panic(err)
+		log.Fatalf("buildArchivePage: %v", err)
 	}
 
 	if err := buildTagsPages(index, tags, tagTemplate); err != nil {
-		panic(err)
+		log.Fatalf("buildTagsPages: %v", err)
+	}
+
+	if err := linkCSSToOutput(); err != nil {
+		log.Fatalf("linkCSSToOutput: %v", err)
 	}
 
 	if devPrs {
@@ -316,6 +321,24 @@ func buildTagsPages(index []sortedPost, tags map[string][]int, tmpl *template.Te
 
 		if err := tmpl.ExecuteTemplate(fOut, "base", templateData); err != nil {
 			return fmt.Errorf("tmpl.ExecuteTemplate: %v", err)
+		}
+	}
+	return nil
+}
+
+func linkCSSToOutput() error {
+	theFs := os.DirFS("./static/")
+	theCssFiles, err := fs.Glob(theFs, "*.css")
+
+	if err != nil {
+		return fmt.Errorf("fs.Glob: %v", err)
+	}
+
+	for i := range theCssFiles {
+		thePath := filepath.Join("./static/", theCssFiles[i])
+		theNewPath := filepath.Join("./output/", theCssFiles[i])
+		if err := os.Link(thePath, theNewPath); err != nil {
+			return fmt.Errorf("os.Link: %v", err)
 		}
 	}
 	return nil
