@@ -19,22 +19,22 @@ import (
 func main() {
 	_, devPrs := os.LookupEnv("WEAVER_DEV")
 
-	tmpl, err := template.ParseFiles("base_template.html", "post_template.html")
+	tmpl, err := template.ParseFiles("templates/base_template.html", "templates/post_template.html")
 	if err != nil {
 		panic(fmt.Errorf("template.ParseFiles: %v", err))
 	}
 
-	indexTemplate, err := template.ParseFiles("base_template.html", "index_template.html")
+	indexTemplate, err := template.ParseFiles("templates/base_template.html", "templates/index_template.html")
 	if err != nil {
 		panic(fmt.Errorf("template.ParseFiles: %v", err))
 	}
 
-	archiveTemplate, err := template.ParseFiles("base_template.html", "archive_template.html")
+	archiveTemplate, err := template.ParseFiles("templates/base_template.html", "templates/archive_template.html")
 	if err != nil {
 		panic(fmt.Errorf("template.ParseFiles: %v", err))
 	}
 
-	tagTemplate, err := template.ParseFiles("base_template.html", "tag_template.html")
+	tagTemplate, err := template.ParseFiles("templates/base_template.html", "templates/tag_template.html")
 	if err != nil {
 		panic(fmt.Errorf("template.ParseFiles: %v", err))
 	}
